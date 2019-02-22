@@ -1,0 +1,35 @@
+
+name: $(BuildDefinitionName).$(DayOfYear)$(Rev:.r)
+
+pool:
+  name: Terraform Agents
+trigger:
+  batch: true
+  branches:
+    include:
+      - master
+      - feature/*
+  paths:
+    include:
+      - 'SOMEPATH/DEV/AKS'
+variables:
+- name: state.key
+  value: 'TFSTATE'
+- name: terraform.path
+  value: 'SOMEPATH/DEV/AKS'
+- group: 'KEY-VAULT-VAR-GROUP'
+- group: 'STANDARD-VAR-GROUP'
+
+steps:
+- checkout: self
+  clean: true
+  persistCredentials: true
+
+- template: ADO/Build-Readiness.yml@Templates
+
+- template: ADO/DEV-plan.yml@Templates
+
+- template: ADO/Publish-Terraform-Artifact.yml@Templates
+
+- template: ADO/Publish-Plan-To-Wiki.yml@Templates
+view rawazure-pipelines.yml hosted with ❤ by GitHub
