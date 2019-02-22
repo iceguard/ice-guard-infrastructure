@@ -4,6 +4,7 @@
 *.tfstate
 *.tfstate.backup
 
+*.tfvars
 #Configuration Files
 *configuration.tf
 *config.tf
