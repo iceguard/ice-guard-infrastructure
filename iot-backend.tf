@@ -88,7 +88,7 @@ resource "azurerm_iothub" "igss_iothub" {
 resource "azurerm_template_deployment" "igss_streamanalyitics_deployment" {
   name                = "StreamAnalytics-Deployment-01"
   resource_group_name = "${azurerm_resource_group.igss_iot_backend_rg.name}"
-  template_body       = "${file("${path.cwd}/templates/StreamAnalytics.json")}"
+  template_body       = "${file("${path.cwd}/StreamAnalytics/StreamAnalytics.json")}"
 
   parameters {
     name = "igss-streamanalytics"
