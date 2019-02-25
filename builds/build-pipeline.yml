@@ -1,33 +1,33 @@
 steps:
-
-- task: DotNetCoreCLI@2
-  displayName: Build
+- task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
+  displayName: 'Use Terraform 0.11.11'
   inputs:
-    projects: '$(Parameters.RestoreBuildProjects)'
-    arguments: '--configuration $(BuildConfiguration)'
+    terraformVersion: 0.11.11
 
-- task: DotNetCoreCLI@2
-  displayName: Test
+- task: DownloadSecureFile@1
+  displayName: 'Download secure file'
   inputs:
-    command: test
-    projects: '$(Parameters.TestProjects)'
-    arguments: '--configuration $(BuildConfiguration)'
+    secureFile: 'terraform.tfvars'
 
-- task: DotNetCoreCLI@2
-  displayName: Publish
+- task: DownloadSecureFile@1
+  displayName: 'Download secure file'
   inputs:
-    command: publish
-    publishWebProjects: True
-    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
-    zipAfterPublish: True
+    secureFile: 'backend.tfvars'
 
 - task: CopyFiles@2
-  displayName: 'Copy Terraform files to artifacts'
+  displayName: 'Copy Files to: $(Build.SourcesDirectory)'
   inputs:
-    SourceFolder: Terraform
-    TargetFolder: '$(build.artifactstagingdirectory)/Terraform'
+    sourceFolder: $(Agent.TempDirectory)
+    targetFolder: $(Build.SourcesDirectory)
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact'
+- script: 'terraform init -backend-config="backend.tfvars"'
+  displayName: 'Terraform init'
+
+- script: 'terraform plan'
+  displayName: 'Terraform plan'    
+
+- task: DeleteFiles@1
+  displayName: 'Delete files from $(Build.SourcesDirectory)'
   inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: '**'
