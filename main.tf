@@ -5,7 +5,7 @@ provider "azurerm" {
   client_secret   = "${var.client_secret}"
 }
 
-
+/* 
 resource "azurerm_resource_group" "igss_automation_rg" {
     name = "igss-automation-rg"
     location = "${var.region}"
@@ -42,3 +42,4 @@ resource "azurerm_storage_container" "igss_terraform_sa01_container01" {
   storage_account_name  = "${azurerm_storage_account.igss_terraform_sa.name}"
   container_access_type = "private"
 }
+ */
