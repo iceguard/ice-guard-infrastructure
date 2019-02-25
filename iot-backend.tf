@@ -101,5 +101,5 @@ resource "azurerm_template_deployment" "igss_streamanalyitics_deployment" {
   deployment_mode = "Incremental"
   depends_on      = ["azurerm_iothub.igss_iothub"]
 }
-
+#Further configuration is done with powershell scripts in ./StreamAnalytics/...
 
