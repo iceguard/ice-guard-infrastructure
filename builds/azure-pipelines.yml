@@ -16,7 +16,7 @@ steps:
     targetFolder: $(Build.SourcesDirectory)
 
 - script: 'terraform init'
-  displayName: 'Terraform init'
+  displayName: 'Terraform init -backend-config="backend.tfvars"'
 
 - script: 'terraform apply -auto-approve'
   displayName: 'Terraform apply'
