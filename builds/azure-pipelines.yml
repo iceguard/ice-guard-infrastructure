@@ -24,18 +24,7 @@ steps:
   displayName: 'Terraform init'
 
 - script: 'terraform apply -auto-approve'
-  displayName: 'Terraform apply'
-
-- task: AzurePowerShell@3
-  displayName: 'Update StreamAnalytics with Powershell'
-  inputs:
-    azureSubscription: 'Azure'
-    scriptType: 'FilePath'
-    scriptPath: './StreamAnalytics/Update-StreamAnalyticsIOQueries.ps1'
-    errorActionPreference: 'stop'
-    failOnStandardError: false
-    azurePowerShellVersion: 'latestVersion'
-    
+  displayName: 'Terraform apply'    
 
 - task: DeleteFiles@1
   displayName: 'Delete files from $(Build.SourcesDirectory)'
