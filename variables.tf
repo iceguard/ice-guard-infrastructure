@@ -32,3 +32,7 @@ variable "env_tag" {
     description = "Environment tag."
     default = "Development"
 }
+
+variable "devteam_objectId" {
+    description = "Object ID of group to enable full access on keyvault for development purposes. Defined in terraform.tfvars"
+}
