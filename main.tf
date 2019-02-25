@@ -31,8 +31,8 @@ resource "azurerm_storage_account" "igss_terraform_sa" {
   
   
   tags {
-        Project = "${var.igss_project_tag}"
-        Environment = "${var.igss_env_tag}"
+        Project = "${var.project_tag}"
+        Environment = "${var.env_tag}"
   }
 }
 
