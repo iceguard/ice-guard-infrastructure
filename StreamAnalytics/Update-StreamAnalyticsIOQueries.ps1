@@ -5,11 +5,13 @@ $jobInputDefinitionFile = ".\JobInputDefinition.json"
 $resourceGroup = "igss-iot-backend-rg"
 $jobName = "igss-streamanalytics"
 
+Get-ChildItem -Path '.'
+
 New-AzureRMStreamAnalyticsInput `
   -ResourceGroupName $resourceGroup `
   -JobName $jobName `
   -File $jobInputDefinitionFile `
-  -Name $jobInputName
+  -Name $jobInputName -Force
 
 $jobOutputName = "BlobOutput"
 $jobOutputDefinitionFile = ".\JobOutputDefinition.json"
