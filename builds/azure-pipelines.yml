@@ -27,6 +27,7 @@ steps:
   displayName: 'Terraform apply'
 
 - task: AzurePowerShell@4
+    displayName: 'Update StreamAnalytics with Powershell'
   inputs:
     azureSubscription: $(subscription)
     scriptType: 'FilePath'
