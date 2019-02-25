@@ -8,6 +8,7 @@ steps:
   displayName: 'Download secure file'
   inputs:
     secureFile: 'terraform.tfvars'
+    secureFile: 'backend.tfvars'
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(Build.SourcesDirectory)'
