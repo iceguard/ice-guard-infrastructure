@@ -8,6 +8,10 @@ steps:
   displayName: 'Download secure file'
   inputs:
     secureFile: 'terraform.tfvars'
+
+- task: DownloadSecureFile@1
+  displayName: 'Download secure file'
+  inputs:
     secureFile: 'backend.tfvars'
 
 - task: CopyFiles@2
