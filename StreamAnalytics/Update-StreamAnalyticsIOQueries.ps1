@@ -5,7 +5,7 @@ $jobInputDefinitionFile = ".\JobInputDefinition.json"
 $resourceGroup = "igss-iot-backend-rg"
 $jobName = "igss-streamanalytics"
 
-New-AzStreamAnalyticsInput `
+New-AzureRMStreamAnalyticsInput `
   -ResourceGroupName $resourceGroup `
   -JobName $jobName `
   -File $jobInputDefinitionFile `
@@ -13,7 +13,7 @@ New-AzStreamAnalyticsInput `
 
 $jobOutputName = "BlobOutput"
 $jobOutputDefinitionFile = ".\JobOutputDefinition.json"
-New-AzStreamAnalyticsOutput `
+New-AzureRMStreamAnalyticsOutput `
   -ResourceGroupName $resourceGroup `
   -JobName $jobName `
   -File $jobOutputDefinitionFile `
@@ -21,7 +21,7 @@ New-AzStreamAnalyticsOutput `
 
   $jobTransformationName = "MyJobTransformation"
   $jobTransformationDefinitionFile = ".\JobTransformationDefinition.json"
-  New-AzStreamAnalyticsTransformation `
+  New-AzureRMStreamAnalyticsTransformation `
     -ResourceGroupName $resourceGroup `
     -JobName $jobName `
     -File $jobTransformationDefinitionFile `
