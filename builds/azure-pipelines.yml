@@ -26,7 +26,7 @@ steps:
 - script: 'terraform apply -auto-approve'
   displayName: 'Terraform apply'
 
-- task: AzurePowerShell@4
+- task: AzurePowerShell@3
   displayName: 'Update StreamAnalytics with Powershell'
   inputs:
     azureSubscription: $(subscription)
