@@ -8,7 +8,12 @@ resource "azurerm_resource_group" "igss_iot_backend_rg" {
   }
 }
 
-#IoT-Hub SA Endpoint
+####################
+# IoT Hub
+####################
+
+#Storage Account for Iot Hub messages.
+
 resource "azurerm_storage_account" "igss_iotmessages_sa01" {
   name                     = "igssiotmsgsa01"
   resource_group_name      = "${azurerm_resource_group.igss_iot_backend_rg.name}"
@@ -77,6 +82,26 @@ resource "azurerm_iothub" "igss_iothub" {
         project = "${var.project_tag}"
         Environment = "${var.env_tag}"
   }
+}
+
+################################
+# Device Provisioning Services
+################################
+
+resource "azurerm_template_deployment" "igss_dps" {
+  name                = "DPS-Deployment-01"
+  resource_group_name = "${azurerm_resource_group.igss_iot_backend_rg.name}"
+  template_body       = "${file("${path.cwd}/templates/DPS.json")}"
+
+  parameters {
+    name = "igss-dps"
+    location = "${azurerm_resource_group.igss_iot_backend_rg.location}"
+    iot-hub-name = "${azurerm_iothub.igss_iothub.name}"
+    iot-hub-location = "${azurerm_iothub.igss_iothub.location}"
+  }
+
+  deployment_mode = "Incremental"
+  depends_on      = ["azurerm_iothub.igss_iothub"]
 }
 
 

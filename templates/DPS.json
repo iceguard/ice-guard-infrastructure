@@ -1,0 +1,35 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "iot-hub-name": {
+            "type": "string"
+        },
+        "iot-hub-location": {
+            "type": "string"
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "2017-08-21-preview",
+            "type": "Microsoft.Devices/ProvisioningServices",
+            "name": "[parameters('name')]",
+            "location": "[parameters('location')]",
+            "properties": {
+                "iotHubs": [
+                    {
+                        "name": "[concat(parameters('iot-hub-name'),'.azure-devices.net']",
+                        "connectionString": "[concat('HostName=',parameters('iot-hub-name'),'.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=****'",
+                        "location": "[parameters('iot-hub-location')]"
+                    }
+                ]
+            }
+        }
+    ]
+}
