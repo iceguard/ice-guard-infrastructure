@@ -87,7 +87,7 @@ resource "azurerm_iothub" "igss_iothub" {
 ################################
 # Device Provisioning Services
 ################################
-
+#Configured with iothub
 resource "azurerm_template_deployment" "igss_dps" {
   name                = "DPS-Deployment-01"
   resource_group_name = "${azurerm_resource_group.igss_iot_backend_rg.name}"
