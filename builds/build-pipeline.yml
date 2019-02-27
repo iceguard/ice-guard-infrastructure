@@ -1,6 +1,7 @@
 trigger:
 - master
 - features/*
+- feature/*
 
 steps:
 - task: charleszipp.azure-pipelines-tasks-terraform.azure-pipelines-tasks-terraform-installer.TerraformInstaller@0
