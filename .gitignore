@@ -10,3 +10,5 @@
 *config.tf
 #Temp Files
 .terraform/
+
+/.vscode
