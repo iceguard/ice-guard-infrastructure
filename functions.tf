@@ -37,16 +37,16 @@ resource "azurerm_function_app" "igss_businesslogic_function" {
 }
 
 
-resource "azurerm_storage_account" "igss_iotcosmosfunction_sa" {
-  name                     = "iotcosmosfuncsa01"
+resource "azurerm_storage_account" "igss_iotbackendfunction_sa" {
+  name                     = "iotbefuncsa01"
   resource_group_name      = "${azurerm_resource_group.igss_iot_backend_rg.name}"
   location                 = "${azurerm_resource_group.igss_iot_backend_rg.location}"
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
 
-resource "azurerm_app_service_plan" "igss_iotcosmos_appplan" {
-  name                = "igss-iotcosmos-appplan"
+resource "azurerm_app_service_plan" "igss_iotbackend_appplan" {
+  name                = "igss-iot-backend-appplan"
   location            = "${azurerm_resource_group.igss_iot_backend_rg.location}"
   resource_group_name = "${azurerm_resource_group.igss_iot_backend_rg.name}"
   kind                = "FunctionApp"
@@ -57,10 +57,10 @@ resource "azurerm_app_service_plan" "igss_iotcosmos_appplan" {
   }
 }
 
-resource "azurerm_function_app" "igss_iotcosmos_function" {
-  name                      = "igss-iotcosmos-function"
+resource "azurerm_function_app" "igss_iotbackend_function" {
+  name                      = "igss-iot-backend-function"
   location                  = "${azurerm_resource_group.igss_iot_backend_rg.location}"
   resource_group_name       = "${azurerm_resource_group.igss_iot_backend_rg.name}"
-  app_service_plan_id       = "${azurerm_app_service_plan.igss_iotcosmos_appplan.id}"
-  storage_connection_string = "${azurerm_storage_account.igss_iotcosmosfunction_sa.primary_connection_string}"
+  app_service_plan_id       = "${azurerm_app_service_plan.igss_iotbackend_appplan.id}"
+  storage_connection_string = "${azurerm_storage_account.igss_iotbackendfunction_sa.primary_connection_string}"
 }
