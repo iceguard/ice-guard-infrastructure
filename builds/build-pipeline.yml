@@ -38,11 +38,18 @@ steps:
 - script: 'terraform plan'
   displayName: 'Terraform plan'    
 
-- task: PublishBuildArtifacts@1
+steps:
+- task: CopyFiles@2
+  displayName: 'Copy Terraform files to artifacts'
   inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-    artifactName: 'drop' 
-    publishLocation: 'Container'
+    SourceFolder: Terraform
+    TargetFolder: '$(build.artifactstagingdirectory)/Terraform'
+
+steps:
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
 
 - task: DeleteFiles@1
   displayName: 'Delete files from $(Build.SourcesDirectory)'
