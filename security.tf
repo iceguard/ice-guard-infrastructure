@@ -111,3 +111,22 @@ resource "azurerm_key_vault_access_policy" "igss_keyvault_accesspolicy03" {
     ]
 
 }
+
+/*
+resource "azurerm_key_vault_access_policy" "igss_keyvault_accesspolicy04" {
+  vault_name          = "${azurerm_key_vault.igss_keyvault.name}"
+  resource_group_name = "${azurerm_key_vault.igss_keyvault.resource_group_name}"
+
+  tenant_id = "${data.azurerm_client_config.clientconfig_current.tenant_id}"
+  object_id = "${azurerm_function_app.igss_backend_function.identity.principal_id}"
+
+    key_permissions = [
+      "get"
+    ]
+
+    secret_permissions = [
+      "get"
+    ]
+  depends_on = ["azurerm_function_app.igss_backend_function"]
+}
+*/

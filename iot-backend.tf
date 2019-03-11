@@ -103,3 +103,40 @@ resource "azurerm_template_deployment" "igss_streamanalyitics_deployment" {
 }
 #Further configuration is done with powershell scripts in ./StreamAnalytics/...
 
+##################
+# Cosmos DB
+##################
+
+resource "random_integer" "ri" {
+  min = 10000
+  max = 99999
+}
+
+resource "azurerm_cosmosdb_account" "igss_cosmosdb" {
+  name                = "igss-iot-cosmosdb-${random_integer.ri.result}"
+  location            = "${azurerm_resource_group.igss_iot_backend_rg.location}"
+  resource_group_name = "${azurerm_resource_group.igss_iot_backend_rg.name}"
+  offer_type          = "Standard"
+  kind                = "MongoDB"
+
+  enable_automatic_failover = true
+
+  consistency_policy {
+    consistency_level       = "BoundedStaleness"
+    max_interval_in_seconds = 10
+    max_staleness_prefix    = 200
+  }
+
+  geo_location {
+    prefix            = "igss-iot-cosmosdb-${random_integer.ri.result}-customid"
+    location          = "${azurerm_resource_group.igss_iot_backend_rg.location}"
+    failover_priority = 0
+  }
+}
+
+resource "azurerm_key_vault_secret" "igss_cosmosdb_connectionstring" {
+  name     = "igss-cosmosdb-connectionstring"
+  value    = "${azurerm_cosmosdb_account.igss_cosmosdb.connection_strings[0]}"
+  key_vault_id = "${azurerm_key_vault.igss_keyvault.id}"
+  depends_on = ["azurerm_key_vault_access_policy.igss_keyvault_accesspolicy02"]
+}
