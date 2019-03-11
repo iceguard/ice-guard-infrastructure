@@ -26,8 +26,11 @@ steps:
 - script: 'terraform init -backend-config="backend.tfvars"'
   displayName: 'Terraform init'
 
-- script: 'terraform apply -auto-approve' 
-  displayName: 'Terraform apply'    
+- script: 'terraform plan'
+  displayName: 'Terraform plan'    
+
+- script: 'terraform apply -auto-approve'
+  displayName: 'Terraform approve' 
 
 - task: DeleteFiles@1
   displayName: 'Delete files from $(Build.SourcesDirectory)'

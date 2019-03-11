@@ -36,6 +36,7 @@ resource "azurerm_function_app" "igss_businesslogic_function" {
   storage_connection_string = "${azurerm_storage_account.igss_businesslogic_function_sa.primary_connection_string}"
 }
 
+
 #################
 # Backend Function
 #################
@@ -47,8 +48,10 @@ resource "azurerm_storage_account" "igss_backend_function_sa" {
   account_replication_type = "LRS"
 }
 
+
 resource "azurerm_app_service_plan" "igss_backend_appplan" {
   name                = "igss-backend-appplan"
+
   location            = "${azurerm_resource_group.igss_iot_backend_rg.location}"
   resource_group_name = "${azurerm_resource_group.igss_iot_backend_rg.name}"
   kind                = "FunctionApp"
@@ -59,6 +62,7 @@ resource "azurerm_app_service_plan" "igss_backend_appplan" {
   }
 }
 
+
 resource "azurerm_function_app" "igss_backend_function" {
   name                      = "igss-backend-functions"
   location                  = "${azurerm_resource_group.igss_iot_backend_rg.location}"
@@ -68,4 +72,5 @@ resource "azurerm_function_app" "igss_backend_function" {
   identity   {               
     type = "SystemAsigned"
   }
+
 }
