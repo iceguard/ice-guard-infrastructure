@@ -127,4 +127,5 @@ resource "azurerm_key_vault_access_policy" "igss_keyvault_accesspolicy04" {
     secret_permissions = [
       "get"
     ]
+  depends_on = ["azurerm_function_app.igss_backend_function"]
 }
