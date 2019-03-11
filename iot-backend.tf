@@ -112,7 +112,7 @@ resource "random_integer" "ri" {
   max = 99999
 }
 
-resource "azurerm_cosmosdb_account" "db" {
+resource "azurerm_cosmosdb_account" "igss_cosmosdb" {
   name                = "igss-iot-cosmosdb-${random_integer.ri.result}"
   location            = "${azurerm_resource_group.igss_iot_backend_rg.location}"
   resource_group_name = "${azurerm_resource_group.igss_iot_backend_rg.name}"
@@ -132,4 +132,11 @@ resource "azurerm_cosmosdb_account" "db" {
     location          = "${azurerm_resource_group.igss_iot_backend_rg.location}"
     failover_priority = 0
   }
+}
+
+resource "azurerm_key_vault_secret" "igss_cosmosdb_connectionstring" {
+  name     = "igss-cosmosdb-connectionstring"
+  value    = "${azurerm_cosmosdb_account.igss_cosmosdb.connection_strings[0]}"
+  key_vault_id = "${azurerm_key_vault.igss_keyvault.id}"
+  depends_on = ["azurerm_key_vault_access_policy.igss_keyvault_accesspolicy02"]
 }
