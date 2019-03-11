@@ -70,7 +70,7 @@ resource "azurerm_iothub" "igss_iothub" {
     source         = "DeviceMessages"
     condition      = "true"
     endpoint_names = ["export"]
-    enabled        = true
+    enabled        = false
   }
 
   tags {
