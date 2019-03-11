@@ -70,7 +70,7 @@ resource "azurerm_function_app" "igss_backend_function" {
   app_service_plan_id       = "${azurerm_app_service_plan.igss_backend_appplan.id}"
   storage_connection_string = "${azurerm_storage_account.igss_backend_function_sa.primary_connection_string}"
   identity   {               
-    type = "SystemAsigned"
+    type = "SystemAssigned"
   }
 
 }
