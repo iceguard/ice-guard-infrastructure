@@ -112,7 +112,7 @@ resource "azurerm_key_vault_access_policy" "igss_keyvault_accesspolicy03" {
 
 }
 
-
+/*
 resource "azurerm_key_vault_access_policy" "igss_keyvault_accesspolicy04" {
   vault_name          = "${azurerm_key_vault.igss_keyvault.name}"
   resource_group_name = "${azurerm_key_vault.igss_keyvault.resource_group_name}"
@@ -129,3 +129,4 @@ resource "azurerm_key_vault_access_policy" "igss_keyvault_accesspolicy04" {
     ]
   depends_on = ["azurerm_function_app.igss_backend_function"]
 }
+*/
